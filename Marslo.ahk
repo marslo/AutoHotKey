@@ -63,9 +63,9 @@ Return
 !f::
     Send ^{Right}
 Return
-^j::
-    Send ^{End}{Enter}{Enter}
-Return
+; ^j::
+    ; Send ^{End}{Enter}{Enter}
+; Return
 !k::
     Send {Up}
 Return
