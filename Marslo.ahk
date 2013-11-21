@@ -82,8 +82,8 @@ Return
 
 ; Using VIM-KEY against Foxit Reader
 #IfWinActive, ahk_class classFoxitReader
-; j::Down
-; k::Up
+^j::Down
+^k::Up
 ; f::PgDn
 ; b::PgUp
 ; G::End
@@ -300,6 +300,50 @@ Return
 #IfWinActive, ahk_class Framework::CFrame
 ESC::
     Send, !{F4}
+    Return
+Return
+#IfWinActive
+
+; Close Explorer.exe (My computer) by <ESC>
+#IfWinActive, ahk_class CabinetWClass
+ESC::
+    Send, !{F4}
+    Return
+Return
+#IfWinActive
+
+; Close Tencent Main window by <ESC>
+#IfWinActive, ahk_class TXGuiFoundation
+ESC::
+    Send, !{F4}
+    Return
+Return
+#IfWinActive
+
+; VIM-Like and Emacs-Like shortcuts in Outlook
+#IfWinActive, ahk_class rctrl_renwnd32
+^w::
+    Send, ^{Backspace}
+Return
+!d::
+    Send, ^{Del}
+Return
+^a::
+    Send, {Home}
+Return
+^e::
+    Send, {End}
+Return
+!j::
+    Send, {Down}
+Return
+!k::
+    Send, {Up}
+Return
+
+; Minimize the Outlook by <ESC>
+ESC::
+    Send, !{Space}n
     Return
 Return
 #IfWinActive
