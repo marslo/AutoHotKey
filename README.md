@@ -3,18 +3,18 @@ AutoHotKey
 
 My AutoHotKey configuration
 
-# For All windows:
+## For All windows:
 - `Ctrl + Shift + r`: Reload autohotkey script
 - `Shift + Win + h`: Move(Drag and drop) the current window **Left** (10pix)
 - `Shift + Win + l`: Move(Drag and drop) the current window **Right** (10pix)
 - `Shift + Win + j`: Move(Drag and drop) the current window **Down** (10pix)
 - `Shift + Win + k`: Move(Drag and drop) the current window **Up** (10pix)
 
-# For Putty
+## For Putty
 - `Alt + k`: Scroll one line up
 - `Alt + j`: Scroll one line down
 
-# For Pythion Interactive shell
+## For Pythion Interactive shell
 - `Ctrl + u`: Delete to the beginning of line
 - `Ctrl + a`: Jump to the beginning of line
 - `Alt + b`: Jump to word forward
@@ -24,9 +24,9 @@ My AutoHotKey configuration
 - `Alt + j`: Down (Move cursor to next line)
 - `Alt + k`: Up (Move cursor to upper line)
 - `Ctrl + j`: Execute the sentences
-Rest shortcut can be found [here](https://github.com/woainvzu/PythonIDLE_config_Marslo/blob/master/IDLE/.idlerc/config-keys.cfg)
+Rest shortcut can be found [here](https://github.com/Marslo/PythonIDLE/blob/master/IDLE/.idlerc/config-keys.cfg)
 
-# For Command Line (Linux Shell style)
+## For Command Line (Linux Shell style)
 - `Ctrl + v`: Paste to cmd
 - `Ctrl + p`: Show previous history
 - `Ctrl + n`: Show next history
@@ -42,26 +42,36 @@ Rest shortcut can be found [here](https://github.com/woainvzu/PythonIDLE_config_
 - `Alt + j`: Scroll down one line
 - `Alt + k`: Scroll up one line
 
-# For Cygwin
+## For Cygwin
 - `Alt + j`: Scroll down one line
 - `Alt + k`: Scrool up one line
 
-# For CHM reader (hh.exe)
+## For CHM reader (hh.exe)
 - `Shift + j`: Scroll down
 - `Shift + k`: Scroll up
 - `/`: Search
 
-# For Goldendict
+## For Goldendict
 - `Shift + j`: Scroll down
 - `Shift + k`: Scroll up
 - `Shift + /`: Search
 
-# For IE
+## For IE
 - `Shift + j`: Scroll Down
 - `Shift + k`: Scroll Up
 - `Shift + /`: Search
 
-# ESC
+## For Outlook
+- `Ctrl + w`: Delete a word backward
+- `Alt + d`: Delete a word forward
+- `Ctrl + e`: Move to the end of line
+- `Ctrl + a`: Move to the begin of line
+- `Ctrl + j`: Move to line down
+- `Ctrl + k`: Move to line up
+
+## ESC
+- Close My Computer window
 - Close Office Commuicator main window
 - Close Totle command
 - Close OneNote
+- Minimize Outlook
