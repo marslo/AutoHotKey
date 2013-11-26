@@ -22,6 +22,8 @@
 #Warn  ; Recommended for catching common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+; SetTitleMatchMode, 2
+SetTitleMatchMode RegEx
 
 ^+r::
     reload
@@ -340,9 +342,13 @@ Return
 !k::
     Send, {Up}
 Return
+#IfWinActive
 
-; Minimize the Outlook by <ESC>
+; Minimize the Outlook Main Window by <ESC>
+#IfWinActive, .*Microsoft Outlook.*
 ESC::
+    ; WinGetTitle, mTitle, A
+    ; MsgBox %mTitle%
     Send, !{Space}n
     Return
 Return
