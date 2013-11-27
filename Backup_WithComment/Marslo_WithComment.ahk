@@ -15,7 +15,7 @@
 ;        History:
 ;               0.0.2: Add the shortcut key make command line looks like shell
 ;               0.0.3: Add the shortcut key for Python interative shell
-;               0.0.4: Add ESC to close communicator main window, Total command and onenote
+;               0.0.4: Add ESC to close communicator main window, totle command and onenote
 ;               0.0.5: Add ESC to Minimize Outlook Main window
 ;               0.0.6: Add Operations into Console2
 ; =============================================================================
@@ -24,42 +24,19 @@
 #Warn  ; Recommended for catching common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-SetTitleMatchMode 2
+; SetTitleMatchMode, 2
+SetTitleMatchMode RegEx
 
 ^+r::
     reload
 Return
 
-; Move the windows by Shift+Win+h/l/j/k
-+#h::
-    WinGetTitle, mTitle, A
-    WinGetPos, xpos, ypos, Width, Height, %mTitle%
-    WinMove, %mTitle%,, xpos-10, ypos
-Return
-+#l::
-    WinGetTitle, mTitle, A
-    WinGetPos, xpos, ypos, Width, Height, %mTitle%
-    WinMove, %mTitle%,, xpos+10, ypos
-Return
-+#k::
-    WinGetTitle mTitle, A
-    WinGetPos, xpos, ypos, Width, Height, %mTitle%
-    WinMove, %mTitle%,, xpos, ypos-10
-Return
-+#j::
-    WinGetTitle mTitle, A
-    WinGetPos, xpos, ypos, Width, Height, %mTitle%
-    WinMove, %mTitle%,, xpos, ypos+10
-Return
+
 
 ; Make quick scroll to the putty window
 #IfWinActive, ahk_class PuTTY
 ; ControlGetFocus, control, A
 
-F10::
-    WinGetTitle pTitle
-    MsgBox %pTitle%
-Return
 ; Ctrl+k to scroll up by one line
 !k::
     WinGetTitle pTitle
@@ -78,6 +55,7 @@ Return
 ; Make quick delete to begin in Python interactive shell
 #IfWinActive ahk_class TkTopLevel
 ^u::
+    ; Send ^{a}+{End}{Del}
     Send +{Home}{Del}
 Return
 ^a::
@@ -89,6 +67,9 @@ Return
 !f::
     Send ^{Right}
 Return
+; ^j::
+    ; Send ^{End}{Enter}{Enter}
+; Return
 !k::
     Send {Up}
 Return
@@ -107,6 +88,25 @@ Return
 #IfWinActive, ahk_class classFoxitReader
 ^j::Down
 ^k::Up
+; f::PgDn
+; b::PgUp
+; G::End
+; g::Home
+; h::
+    ; Send ^+{Tab}
+; Return
+; l::
+    ; Send ^{Tab}
+; Return
+; /::
+    ; Send ^f
+; Return
+; o::
+    ; Send ^o
+; Return
+; d::
+    ; Send ^w q::Send !{F4}
+; Return
 #IfWinActive
 
 ; Using VIM-LIKE key against chm reader (c:\Windws\hh.exe)
@@ -115,6 +115,9 @@ Return
 +k::Up
 /::
     Send ^f
+Return
+; ^w::
+    ; Send !{F4}
 Return
 #IfWinActive
 
@@ -130,99 +133,142 @@ Return
 
 ; Using VIM-LIKE key against Explorer.exe
 #IfWinActive, ahk_class IEFrame
-!j::Down
-!k::Up
-!l::
++j::Down
++k::Up
+; +g::Home
+; +e::End
++l::
     Send {Right}
 Return
-!h::
++h::
     Send {Left}
 Return
 +/::
     Send ^f
 Return
+; ^w::
+    ; Send !{F4}
+Return
 #IfWinActive
 
-; Redefine only when the active window is a cmd
+
+; Redefine only when the active window is a console window
 #IfWinActive ahk_class ConsoleWindowClass
-^a::
+; Line move
+^a:: ;; Move to beginning of line
     Send {Home}
 Return
-^e::
+^e:: ;; Move to End of line
     Send {End}
 Return
-^f::
+
+; Character move
+^f:: ;; Move a character forward
     Send {Right}
 Return
-^b::
+^b:: ;; Move a character backward
     Send {Left}
 Return
-!b::
+
+; Word Move
+!b:: ;; Move a word backward
     Send ^{Left}
 Return
-!f::
+!f:: ;; Move a word forward
     Send ^{Right}
 Return
 
-^d::
+; Delete
+^d:: ;; Delete a char backward
     Send {Del}
 Return
-^k::
+^k:: ;; Delete the line from cursor to end
     Send ^{End}
 Return
-^u::
+^u:: ;; Delete the line from cursor to beginning
     Send ^{Home}
 Return
-^w::
+^w:: ;; Delete previous word
     Send ^+{Left}
     Loop, 50 {
         Send {Del}
     }
 Return
-!d::
+!d:: ;; Delete backward word
     Send ^+{Right}
     Loop, 50 {
          Send {Backspace}
     }
 Return
 
+; Ctrl+k to scroll up by one line
 !k::
     WinGetTitle sTitle
     SendMessage, 0x115, 0, 0, , %sTitle%
+    ; SendMessage, 0x115, 0, 0, , A
+    ; Send {WheelUp}
+Return
+; Ctrl+j to scroll down by one line
+!j::
+    WinGetTitle sTitle
+    SendMessage, 0x115, 1, 0, , %sTitle%
+    ; SendMessage, 0x115, 1, 0, , A
+    ; Send {WheelDown}
+Return
+
+; Ctrl+p/n to switch the command history
+^p::
+    Send {Up}
+Return
+^n::
+    Send {Down}
+Return
+
+; Paste in command window
+^v::
+    ; Spanish menu (Editar->Pegar, I suppose English version is the same, Edit->Paste)
+    ; MouseClick, right
+    ; Send !{Space}ep
+    StringReplace clipboard2, clipboard, \r\n, \n, All
+    SendInput {Raw}%clipboard2%
+Return
+
+; Close Command Window with Ctrl+w
+; $^w::
+; WinGetTitle sTitle
+; If (InStr(sTitle, "-")=0)
+; {
+    ; Send EXIT{Enter}
+; }
+; else
+; {
+    ; Send ^w
+; }
+; Return
+
+#IfWinActive
+
+
+; Redefine only when the active window is Console2
+#IfWinActive, ahk_class Console_2_Main
+; Ctrl+up / Down to scroll command window back and forward
+!k::
+    WinGetTitle sTitle
+    SendMessage, 0x115, 0, 0, , %sTitle%
+    ; Send {WheelUp}
 Return
 !j::
     WinGetTitle sTitle
     SendMessage, 0x115, 1, 0, , %sTitle%
+    ; Send {WheelDown}
 Return
 
-^p::
-    Send {Up}
-Return
-^n::
-    Send {Down}
-Return
-
-^v::
-    StringReplace clipboard2, clipboard, \r\n, \n, All
-    SendInput {Raw}%clipboard2%
-Return
-#IfWinActive
-
-; Redefine only when the active window is Console2
-#IfWinActive, ahk_class Console_2_Main
-!k::
-    ControlGetFocus, control, A
-    SendMessage, 0x115, 0, 0, %control%, A
-Return
-!j::
-    ControlGetFocus, control, A
-    SendMessage, 0x115, 1, 0, %control%, A
-Return
-
+; Paste in command window
 ^v::
     Send +{Ins}
 Return
 
+; Ctrl+p/n to switch the command history
 ^p::
     Send {Up}
 Return
@@ -230,43 +276,47 @@ Return
     Send {Down}
 Return
 
-^a::
+; line move
+^a:: ;; move to beginning of line
     send {home}
 Return
-^e::
+^e:: ;; move to end of line
     send {end}
 Return
 
-^f::
+; character move
+^f:: ;; move a character forward
     send {right}
 return
-^b::
+^b:: ;; move a character backward
     send {left}
 Return
 
-!b::
+; word move
+!b:: ;; move a word backward
     send ^{left}
 Return
-!f::
+!f:: ;; move a word forward
     send ^{right}
 Return
 
-^d::
+; delete
+^d:: ;; delete a char backward
     send {del}
 Return
-^k::
+^k:: ;; delete the line from cursor to end
     send ^{end}
 Return
-^u::
+^u:: ;; delete the line from cursor to beginning
     send ^{home}
 Return
-^w::
+^w:: ;; delete previous word
     send ^+{left}
     loop, 50 {
         send {del}
     }
 Return
-!d::
+!d:: ;; delete backward word
     send ^+{right}
     loop, 50 {
          send {backspace}
@@ -297,7 +347,7 @@ Esc::
 Return
 #IfWinActive
 
-; Make <ESC> to close Total command
+; Make <ESC> to close Totle command
 #IfWinActive, ahk_class TTOTAL_CMD
 Esc::
     Send, !{F4}
@@ -352,8 +402,10 @@ Return
 #IfWinActive
 
 ; Minimize the Outlook Main Window by <ESC>
-#IfWinActive, Microsoft Outlook
+#IfWinActive, .*Microsoft Outlook.*
 ESC::
+    ; WinGetTitle, mTitle, A
+    ; MsgBox %mTitle%
     Send, !{Space}n
     Return
 Return
@@ -361,19 +413,73 @@ Return
 
 ; Open files
 !+f::
+    ; run "%A_ProgramFiles%\Foxit Software\Foxit Reader\Foxit Reader.exe"
     run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
 Return
+; !+l::
+    ; Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
+    ; Run C:\Marslo\Tools\Software\WorkSW\ExtraOutlook.exe "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /profile "TEdefault"
+; Return
+; !+k::
+    ; Run C:\Marslo\Tools\Software\WorkSW\ExtraOutlook.exe "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /profile "li.jiao@tieto.com - Google Apps"
+; Return
 !+m::
     Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
 Return
 !+r::
+    ; Run %A_WinDir%\hh.exe "%A_ProgramFiles%\Ruby187\doc\ruby18.chm"
     Run %A_WinDir%\hh.exe "C:\MyProgrames\Ruby193\doc\ruby19-core.chm"
 Return
 !+p::
     Run %A_WinDir%\hh.exe "C:\MyProgrames\Python27\Doc\python275.chm"
 Return
 
+; Move the windows by Shift+Win+h/l/j/k
++#h::
+    WinGetTitle, mTitle, A
+    WinGetPos, xpos, ypos, Width, Height, %mTitle%
+    WinMove, %mTitle%,, xpos-10, ypos
+Return
++#l::
+    WinGetTitle, mTitle, A
+    WinGetPos, xpos, ypos, Width, Height, %mTitle%
+    WinMove, %mTitle%,, xpos+10, ypos
+Return
++#k::
+    WinGetTitle mTitle, A
+    WinGetPos, xpos, ypos, Width, Height, %mTitle%
+    WinMove, %mTitle%,, xpos, ypos-10
+Return
++#j::
+    WinGetTitle mTitle, A
+    WinGetPos, xpos, ypos, Width, Height, %mTitle%
+    WinMove, %mTitle%,, xpos, ypos+10
+Return
+
 F9::
     Send source ~/lijiao/.lijiaorc{Enter}
     Send clear{Enter}
 Return
+F6::
+    ; clipboardSaved := clipboard
+    ; MsgBox clipboardSaved
+
+    MouseClick, Right
+    Send, e
+    Send, {Down 2}{Enter}
+
+    ; Clipboard=%1%
+    ; MsgBox Clipboard
+    ; Run,% "Explorer.exe /select, " Clipboard
+Return
+
+
+; F1::MsgBox, % ComObjActive("Word.Application").ActiveDocument.FullName
+; F1::MsgBox, ActiveDocument.Path
+; "\" & ActiveDocument.Name
+
+; F7::
+    ; Send, ^c
+    ; MsgBox, %clipboard%
+    ; Run, vim.exe %clipboard%
+; return
