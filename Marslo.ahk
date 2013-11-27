@@ -10,12 +10,14 @@
 ;                       }
 ;         Author: Marslo
 ;          Email: marslo.vida@gmail.com
-;        Version: 0.0.4
-;     LastChange: 2013-10-31 18:24:06
+;        Version: 0.0.6
+;     LastChange: 2013-11-27 16:00:00
 ;        History:
 ;               0.0.2: Add the shortcut key make command line looks like shell
 ;               0.0.3: Add the shortcut key for Python interative shell
 ;               0.0.4: Add ESC to close communicator main window, totle command and onenote
+;               0.0.5: Add ESC to Minimize Outlook Main window
+;               0.0.6: Add Operations into Console2
 ; =============================================================================
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
@@ -199,15 +201,18 @@ Return
     }
 Return
 
-; Ctrl+up / Down to scroll command window back and forward
+; Ctrl+k to scroll up by one line
 !k::
     WinGetTitle sTitle
     SendMessage, 0x115, 0, 0, , %sTitle%
+    ; SendMessage, 0x115, 0, 0, , A
     ; Send {WheelUp}
 Return
+; Ctrl+j to scroll down by one line
 !j::
     WinGetTitle sTitle
     SendMessage, 0x115, 1, 0, , %sTitle%
+    ; SendMessage, 0x115, 1, 0, , A
     ; Send {WheelDown}
 Return
 
@@ -258,12 +263,64 @@ Return
     ; Send {WheelDown}
 Return
 
+; Paste in command window
+^v::
+    Send +{Ins}
+Return
+
 ; Ctrl+p/n to switch the command history
 ^p::
     Send {Up}
 Return
 ^n::
     Send {Down}
+Return
+
+; line move
+^a:: ;; move to beginning of line
+    send {home}
+Return
+^e:: ;; move to end of line
+    send {end}
+Return
+
+; character move
+^f:: ;; move a character forward
+    send {right}
+return
+^b:: ;; move a character backward
+    send {left}
+Return
+
+; word move
+!b:: ;; move a word backward
+    send ^{left}
+Return
+!f:: ;; move a word forward
+    send ^{right}
+Return
+
+; delete
+^d:: ;; delete a char backward
+    send {del}
+Return
+^k:: ;; delete the line from cursor to end
+    send ^{end}
+Return
+^u:: ;; delete the line from cursor to beginning
+    send ^{home}
+Return
+^w:: ;; delete previous word
+    send ^+{left}
+    loop, 50 {
+        send {del}
+    }
+Return
+!d:: ;; delete backward word
+    send ^+{right}
+    loop, 50 {
+         send {backspace}
+    }
 Return
 #IfWinActive
 
