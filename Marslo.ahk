@@ -292,7 +292,7 @@ Return
 ; Make <ESC> to close office communicator
 #IfWinActive, ahk_class CommunicatorMainWindowClass
 Esc::
-    Send, !{F4}
+    Send !{F4}
     Return
 Return
 #IfWinActive
@@ -300,7 +300,7 @@ Return
 ; Make <ESC> to close Total command
 #IfWinActive, ahk_class TTOTAL_CMD
 Esc::
-    Send, !{F4}
+    Send !{F4}
     Return
 Return
 #IfWinActive
@@ -308,7 +308,7 @@ Return
 ; Make <ESC> to close OneNote
 #IfWinActive, ahk_class Framework::CFrame
 ESC::
-    Send, !{F4}
+    Send !{F4}
     Return
 Return
 #IfWinActive
@@ -316,7 +316,7 @@ Return
 ; Close Explorer.exe (My computer) by <ESC>
 #IfWinActive, ahk_class CabinetWClass
 ESC::
-    Send, !{F4}
+    Send !{F4}
     Return
 Return
 #IfWinActive
@@ -324,7 +324,15 @@ Return
 ; Close Tencent Main window by <ESC>
 #IfWinActive, ahk_class TXGuiFoundation
 ESC::
-    Send, !{F4}
+    Send !{F4}
+    Return
+Return
+#IfWinActive
+
+; Close Skype Windows by <ESC>
+#IfWinActive, Skype
+ESC::
+    Send !{F4}
     Return
 Return
 #IfWinActive
@@ -332,29 +340,29 @@ Return
 ; VIM-Like and Emacs-Like shortcuts in Outlook
 #IfWinActive, ahk_class rctrl_renwnd32
 ^w::
-    Send, ^{Backspace}
+    Send ^{Backspace}
 Return
 !d::
-    Send, ^{Del}
+    Send ^{Del}
 Return
 ^a::
-    Send, {Home}
+    Send {Home}
 Return
 ^e::
-    Send, {End}
+    Send {End}
 Return
 !j::
-    Send, {Down}
+    Send {Down}
 Return
 !k::
-    Send, {Up}
+    Send {Up}
 Return
 #IfWinActive
 
 ; Minimize the Outlook Main Window by <ESC>
 #IfWinActive, Microsoft Outlook
 ESC::
-    Send, !{Space}n
+    Send !{Space}n
     Return
 Return
 #IfWinActive
@@ -368,6 +376,9 @@ Return
 Return
 !+r::
     Run %A_WinDir%\hh.exe "C:\MyProgrames\Ruby193\doc\ruby19-core.chm"
+Return
+!+l::
+  Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
 Return
 !+p::
     Run %A_WinDir%\hh.exe "C:\MyProgrames\Python27\Doc\python275.chm"
