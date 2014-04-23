@@ -32,24 +32,24 @@ Return
 
 ; Move the windows by Shift+Win+h/l/j/k
 +#h::
-    WinGetTitle, mTitle, A
-    WinGetPos, xpos, ypos, Width, Height, %mTitle%
-    WinMove, %mTitle%,, xpos-10, ypos
+  WinGetTitle, mTitle, A
+  WinGetPos, xpos, ypos, Width, Height, %mTitle%
+  WinMove, %mTitle%,, xpos-10, ypos
 Return
 +#l::
-    WinGetTitle, mTitle, A
-    WinGetPos, xpos, ypos, Width, Height, %mTitle%
-    WinMove, %mTitle%,, xpos+10, ypos
+  WinGetTitle, mTitle, A
+  WinGetPos, xpos, ypos, Width, Height, %mTitle%
+  WinMove, %mTitle%,, xpos+10, ypos
 Return
 +#k::
-    WinGetTitle mTitle, A
-    WinGetPos, xpos, ypos, Width, Height, %mTitle%
-    WinMove, %mTitle%,, xpos, ypos-10
+  WinGetTitle mTitle, A
+  WinGetPos, xpos, ypos, Width, Height, %mTitle%
+  WinMove, %mTitle%,, xpos, ypos-10
 Return
 +#j::
-    WinGetTitle mTitle, A
-    WinGetPos, xpos, ypos, Width, Height, %mTitle%
-    WinMove, %mTitle%,, xpos, ypos+10
+  WinGetTitle mTitle, A
+  WinGetPos, xpos, ypos, Width, Height, %mTitle%
+  WinMove, %mTitle%,, xpos, ypos+10
 Return
 
 ; Make quick scroll to the putty window
@@ -62,44 +62,44 @@ F10::
 Return
 ; Ctrl+k to scroll up by one line
 !k::
-    WinGetTitle pTitle
-    SendMessage, 0x115, 0, 0, , %pTitle%
-    ; SendMessage, 0x115, 0, 0, , A
+  WinGetTitle pTitle
+  SendMessage, 0x115, 0, 0, , %pTitle%
+  ; SendMessage, 0x115, 0, 0, , A
 Return
 
 ; Ctrl+j to scroll down by one line
 !j::
-    WinGetTitle pTitle
-    SendMessage, 0x115, 1, 0, , %pTitle%
-    ; SendMessage, 0x115, 1, 0, , A
+  WinGetTitle pTitle
+  SendMessage, 0x115, 1, 0, , %pTitle%
+  ; SendMessage, 0x115, 1, 0, , A
 Return
 #IfWinActive
 
 ; Make quick delete to begin in Python interactive shell
 #IfWinActive ahk_class TkTopLevel
 ^u::
-    Send +{Home}{Del}
+  Send +{Home}{Del}
 Return
 ^a::
-    Send {Home}
+  Send {Home}
 Return
 !b::
-    Send ^{Left}
+  Send ^{Left}
 Return
 !f::
-    Send ^{Right}
+  Send ^{Right}
 Return
 !k::
-    Send {Up}
+  Send {Up}
 Return
 !j::
-    Send {Down}
+  Send {Down}
 Return
 !h::
-    Send {Left}
+  Send {Left}
 Return
 !l::
-    Send {Right}
+  Send {Right}
 Return
 #IfWinActive
 
@@ -114,7 +114,7 @@ Return
 +j::Down
 +k::Up
 /::
-    Send ^f
+  Send ^f
 Return
 #IfWinActive
 
@@ -124,7 +124,7 @@ Return
 +j::Down
 +k::Up
 +/::
-    Send ^f
+  Send ^f
 Return
 #IfWinActive
 
@@ -133,144 +133,144 @@ Return
 !j::Down
 !k::Up
 !l::
-    Send {Right}
+  Send {Right}
 Return
 !h::
-    Send {Left}
+  Send {Left}
 Return
 +/::
-    Send ^f
+  Send ^f
 Return
 #IfWinActive
 
 ; Redefine only when the active window is a cmd
 #IfWinActive ahk_class ConsoleWindowClass
 ^a::
-    Send {Home}
+  Send {Home}
 Return
 ^e::
-    Send {End}
+  Send {End}
 Return
 ^f::
-    Send {Right}
+  Send {Right}
 Return
 ^b::
-    Send {Left}
+  Send {Left}
 Return
 !b::
-    Send ^{Left}
+  Send ^{Left}
 Return
 !f::
-    Send ^{Right}
+  Send ^{Right}
 Return
 
 ^d::
-    Send {Del}
+  Send {Del}
 Return
 ^k::
-    Send ^{End}
+  Send ^{End}
 Return
 ^u::
-    Send ^{Home}
+  Send ^{Home}
 Return
 ^w::
-    Send ^+{Left}
-    Loop, 50 {
-        Send {Del}
-    }
+  Send ^+{Left}
+  Loop, 50 {
+    Send {Del}
+  }
 Return
 !d::
-    Send ^+{Right}
-    Loop, 50 {
-         Send {Backspace}
-    }
+  Send ^+{Right}
+  Loop, 50 {
+    Send {Backspace}
+  }
 Return
 
 !k::
-    WinGetTitle sTitle
-    SendMessage, 0x115, 0, 0, , %sTitle%
+  WinGetTitle sTitle
+  SendMessage, 0x115, 0, 0, , %sTitle%
 Return
 !j::
-    WinGetTitle sTitle
-    SendMessage, 0x115, 1, 0, , %sTitle%
+  WinGetTitle sTitle
+  SendMessage, 0x115, 1, 0, , %sTitle%
 Return
 
 ^p::
-    Send {Up}
+  Send {Up}
 Return
 ^n::
-    Send {Down}
+  Send {Down}
 Return
 
 ^v::
-    StringReplace clipboard2, clipboard, \r\n, \n, All
-    SendInput {Raw}%clipboard2%
+  StringReplace clipboard2, clipboard, \r\n, \n, All
+  SendInput {Raw}%clipboard2%
 Return
 #IfWinActive
 
 ; Redefine only when the active window is Console2
 #IfWinActive, ahk_class Console_2_Main
 !k::
-    ControlGetFocus, control, A
-    SendMessage, 0x115, 0, 0, %control%, A
+  ControlGetFocus, control, A
+  SendMessage, 0x115, 0, 0, %control%, A
 Return
 !j::
-    ControlGetFocus, control, A
-    SendMessage, 0x115, 1, 0, %control%, A
+  ControlGetFocus, control, A
+  SendMessage, 0x115, 1, 0, %control%, A
 Return
 
 ^v::
-    Send +{Ins}
+  Send +{Ins}
 Return
 
 ^p::
-    Send {Up}
+  Send {Up}
 Return
 ^n::
-    Send {Down}
+  Send {Down}
 Return
 
 ^a::
-    send {home}
+  send {home}
 Return
 ^e::
-    send {end}
+  send {end}
 Return
 
 ^f::
-    send {right}
+  send {right}
 return
 ^b::
-    send {left}
+  send {left}
 Return
 
 !b::
-    send ^{left}
+  send ^{left}
 Return
 !f::
-    send ^{right}
+  send ^{right}
 Return
 
 ^d::
-    send {del}
+  send {del}
 Return
 ^k::
-    send ^{end}
+  send ^{end}
 Return
 ^u::
-    send ^{home}
+  send ^{home}
 Return
 ^w::
-    send ^+{left}
-    loop, 50 {
-        send {del}
-    }
+  send ^+{left}
+  loop, 50 {
+    send {del}
+  }
 Return
 !d::
-    send ^+{right}
-    loop, 50 {
-         send {backspace}
-    }
+  send ^+{right}
+  loop, 50 {
+    send {backspace}
+  }
 Return
 #IfWinActive
 
@@ -278,28 +278,28 @@ Return
 #IfWinActive, ahk_class mintty
 ; Ctrl+up / Down to scroll command window back and forward
 !k::
-    WinGetTitle sTitle
-    SendMessage, 0x115, 0, 0, , %sTitle%
-    ; Send {WheelUp}
+  WinGetTitle sTitle
+  SendMessage, 0x115, 0, 0, , %sTitle%
+  ; Send {WheelUp}
 Return
 !j::
-    WinGetTitle sTitle
-    SendMessage, 0x115, 1, 0, , %sTitle%
-    ; Send {WheelDown}
+  WinGetTitle sTitle
+  SendMessage, 0x115, 1, 0, , %sTitle%
+  ; Send {WheelDown}
 Return
 #IfWinActive
 
 ; Make <ESC> to close office communicator
 #IfWinActive, ahk_class CommunicatorMainWindowClass
 Esc::
-    Send !{F4}
-    Return
+  Send !{F4}
+  Return
 Return
 #IfWinActive
 
 ; Make <ESC> to close Total command
 #IfWinActive, ahk_class TTOTAL_CMD
-Esc::
+#e::
     Send !{F4}
     Return
 Return
@@ -308,83 +308,83 @@ Return
 ; Make <ESC> to close OneNote
 #IfWinActive, ahk_class Framework::CFrame
 ESC::
-    Send !{F4}
-    Return
+  Send !{F4}
+  Return
 Return
 #IfWinActive
 
 ; Close Explorer.exe (My computer) by <ESC>
 #IfWinActive, ahk_class CabinetWClass
 ESC::
-    Send !{F4}
-    Return
+  Send !{F4}
+  Return
 Return
 #IfWinActive
 
 ; Close Tencent Main window by <ESC>
 #IfWinActive, ahk_class TXGuiFoundation
 ESC::
-    Send !{F4}
-    Return
+  Send !{F4}
+  Return
 Return
 #IfWinActive
 
 ; Close Skype Windows by <ESC>
 #IfWinActive, Skype
 ESC::
-    Send !{F4}
-    Return
+  Send !{F4}
+  Return
 Return
 #IfWinActive
 
 ; VIM-Like and Emacs-Like shortcuts in Outlook
 #IfWinActive, ahk_class rctrl_renwnd32
 ^w::
-    Send ^{Backspace}
+  Send  ^{Backspace}
 Return
 !d::
-    Send ^{Del}
+  Send  ^{Del}
 Return
 ^a::
-    Send {Home}
+  Send  {Home}
 Return
 ^e::
-    Send {End}
+  Send  {End}
 Return
 !j::
-    Send {Down}
+  Send  {Down}
 Return
 !k::
-    Send {Up}
+  Send  {Up}
 Return
 #IfWinActive
 
 ; Minimize the Outlook Main Window by <ESC>
 #IfWinActive, Microsoft Outlook
 ESC::
-    Send !{Space}n
-    Return
+  Send  !{Space}n
+  Return
 Return
 #IfWinActive
 
 ; Open files
 !+f::
-    run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
+  run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
 Return
 !+m::
-    Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
+  Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
 Return
 !+r::
-    Run %A_WinDir%\hh.exe "C:\MyProgrames\Ruby193\doc\ruby19-core.chm"
+  Run %A_WinDir%\hh.exe "C:\MyProgrames\Ruby193\doc\ruby19-core.chm"
 Return
 !+l::
   Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
 Return
 !+p::
-    Run %A_WinDir%\hh.exe "C:\MyProgrames\Python27\Doc\python275.chm"
+  Run %A_WinDir%\hh.exe "C:\MyProgrames\Python27\Doc\python275.chm"
 Return
 
 F9::
-    Send source ~/lijiao/.lijiaorc{Enter}
-    Send clear{Enter}
+  Send source ~/lijiao/.lijiaorc{Enter}
+  Send clear{Enter}
 Return
