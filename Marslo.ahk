@@ -371,18 +371,21 @@ Return
 !+f::
   run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
 Return
-!+m::
-  Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
-Return
-!+r::
-  Run %A_WinDir%\hh.exe "C:\MyProgrames\Ruby193\doc\ruby19-core.chm"
-Return
 !+l::
   Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
 Return
-!+p::
-  Run %A_WinDir%\hh.exe "C:\MyProgrames\Python27\Doc\python275.chm"
+^!u::
+  run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Cygwin\Cygwin64 Terminal.lnk"
 Return
+; !+p::
+  ; Run %A_WinDir%\hh.exe "C:\MyProgrames\Python27\Doc\python275.chm"
+; Return
+; !+m::
+  ; Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
+; Return
+; !+r::
+  ; Run %A_WinDir%\hh.exe "C:\MyProgrames\Ruby193\doc\ruby19-core.chm"
+; Return
 
 F9::
   Send source ~/lijiao/.lijiaorc{Enter}
