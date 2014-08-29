@@ -319,6 +319,10 @@ ESC::
   Send !{F4}
   Return
 Return
+^l::
+  Send !d
+  Return
+Return
 #IfWinActive
 
 ; Close Tencent Main window by <ESC>
@@ -375,7 +379,7 @@ Return
   Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
 Return
 ^!u::
-  run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Cygwin\Cygwin64 Terminal.lnk"
+  run "C:\Windows\_Defined\Cygwin64.lnk"
 Return
 ; !+p::
   ; Run %A_WinDir%\hh.exe "C:\MyProgrames\Python27\Doc\python275.chm"
