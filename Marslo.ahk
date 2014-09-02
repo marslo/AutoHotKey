@@ -118,7 +118,6 @@ Return
 Return
 #IfWinActive
 
-
 ; Using VIM-LIKE key against GoldenDict
 #IfWinActive, ahk_class QWidget
 +j::Down
@@ -394,4 +393,25 @@ Return
 F9::
   Send source ~/lijiao/.lijiaorc{Enter}
   Send clear{Enter}
+Return
+
+!e::
+  MaxTimeWait = 1000
+  ClipSaved := ClipboardAll
+  Clipboard =
+  Sendinput ^c
+  While(!Clipboard)
+  {
+    ClipWait,0.1,1
+    If A_Index > %MaxTimeWait%
+      Break
+  }
+  Select = %Clipboard% ; 强制转换为纯文本
+  IsFile := DllCall("IsClipboardFormatAvailable","int",15)
+  Clipboard := ClipSaved
+  ClipSaved =
+  If IsFile
+  {
+    Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
+  }
 Return
