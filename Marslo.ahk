@@ -273,6 +273,24 @@ Return
 Return
 #IfWinActive
 
+#IfWinActive, ahk_class VMPlayerFrame
+!j::
+  send +{PgDn}
+Return
+!k::
+  send +{PgUp}
+Return
+#IfWinActive
+
+#IfWinActive ahk_class AcrobatSDIWindow
+!j::
+  send {Down}
+Return
+!K::
+  send {Up}
+Return
+#IfWinActive
+
 ; Redefine only when the active window is Cygwin
 #IfWinActive, ahk_class mintty
 ; Ctrl+up / Down to scroll command window back and forward
@@ -306,6 +324,12 @@ Return
 
 ; Make <ESC> to close OneNote
 #IfWinActive, ahk_class Framework::CFrame
+^w::
+  Send  ^{Backspace}
+Return
+!d::
+  Send  ^{Del}
+Return
 ESC::
   Send !{F4}
   Return
@@ -390,12 +414,12 @@ Return
   ; Run %A_WinDir%\hh.exe "C:\MyProgrames\Ruby193\doc\ruby19-core.chm"
 ; Return
 
-F9::
-  Send source ~/lijiao/.lijiaorc{Enter}
-  Send clear{Enter}
-Return
+; F9::
+  ; Send source ~/lijiao/.lijiaorc{Enter}
+  ; Send clear{Enter}
+; Return
 
-!e::
+!q::
   MaxTimeWait = 1000
   ClipSaved := ClipboardAll
   Clipboard =
@@ -414,4 +438,5 @@ Return
   {
     Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
   }
+  ; MsgBox, %ClipSaved%
 Return
