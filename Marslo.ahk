@@ -282,12 +282,17 @@ Return
 Return
 #IfWinActive
 
+; Alt + j/k for scroll up/down in Adobe Reader
 #IfWinActive ahk_class AcrobatSDIWindow
 !j::
-  send {Down}
+  loop, 2 {
+    send {Down}
+  }
 Return
 !K::
-  send {Up}
+  loop, 2{
+    send {Up}
+  }
 Return
 #IfWinActive
 
@@ -394,6 +399,10 @@ ESC::
 Return
 #IfWinActive
 
+; Show Calendar
+F9::
+  Send #b{Up}{Enter}
+Return
 ; Open files
 !+f::
   run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
