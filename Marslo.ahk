@@ -18,6 +18,8 @@
 ;               0.0.4: Add ESC to close communicator main window, Total command and onenote
 ;               0.0.5: Add ESC to Minimize Outlook Main window
 ;               0.0.6: Add Operations into Console2
+;               0.0.7: Add operations for lunchy
+;               0.0.8: Make format simple
 ; =============================================================================
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
@@ -26,7 +28,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 SetTitleMatchMode 2
 
-^+r::
+^!r::
     reload
 Return
 
@@ -77,101 +79,57 @@ Return
 
 ; Make quick delete to begin in Python interactive shell
 #IfWinActive ahk_class TkTopLevel
-^u::
-  Send +{Home}{Del}
-Return
-^a::
-  Send {Home}
-Return
-!b::
-  Send ^{Left}
-Return
-!f::
-  Send ^{Right}
-Return
-!k::
-  Send {Up}
-Return
-!j::
-  Send {Down}
-Return
-!h::
-  Send {Left}
-Return
-!l::
-  Send {Right}
-Return
+^u:: Send +{Home}{Del}
+^a:: Send {Home}
+!b:: Send ^{Left}
+!f:: Send ^{Right}
+!k:: Send {Up}
+!j:: Send {Down}
+!h:: Send {Left}
+!l:: Send {Right}
 #IfWinActive
 
 ; Using VIM-KEY against Foxit Reader
 #IfWinActive, ahk_class classFoxitReader
-^j::Down
-^k::Up
+^j:: Send {Down}
+^k:: Send {Up}
 #IfWinActive
 
 ; Using VIM-LIKE key against chm reader (c:\Windws\hh.exe)
 #IfWinActive, ahk_class HH Parent
-+j::Down
-+k::Up
-/::
-  Send ^f
-Return
++j:: Send {Down}
++k:: Send {Up}
+/:: Send ^f
 #IfWinActive
 
 ; Using VIM-LIKE key against GoldenDict
 #IfWinActive, ahk_class QWidget
-+j::Down
-+k::Up
-+/::
-  Send ^f
-Return
++j:: Send {Down}
++k:: Send {Up}
++/:: Send ^f
 #IfWinActive
 
 ; Using VIM-LIKE key against Explorer.exe
 #IfWinActive, ahk_class IEFrame
-!j::Down
-!k::Up
-!l::
-  Send {Right}
-Return
-!h::
-  Send {Left}
-Return
-+/::
-  Send ^f
-Return
+!j:: Send {Down}
+!k:: Send {Up}
+!l:: Send {Right}
+!h:: Send {Left}
++/:: Send ^f
 #IfWinActive
 
 ; Redefine only when the active window is a cmd
 #IfWinActive ahk_class ConsoleWindowClass
-^a::
-  Send {Home}
-Return
-^e::
-  Send {End}
-Return
-^f::
-  Send {Right}
-Return
-^b::
-  Send {Left}
-Return
-!b::
-  Send ^{Left}
-Return
-!f::
-  Send ^{Right}
-Return
+^a:: Send {Home}
+^e:: Send {End}
+^f:: Send {Right}
+^b:: Send {Left}
+!b:: Send ^{Left}
+!f:: Send ^{Right}
 
-^d::
-  Send {Del}
-Return
-^k::
-  Send ^{End}
-Return
-^u::
-  Send ^{Home}
-Return
+^d:: Send {Del}
+^k:: Send ^{End}
+^u:: Send ^{Home}
 ^w::
   Send ^+{Left}
   Loop, 50 {
@@ -194,12 +152,8 @@ Return
   SendMessage, 0x115, 1, 0, , %sTitle%
 Return
 
-^p::
-  Send {Up}
-Return
-^n::
-  Send {Down}
-Return
+^p:: Send {Up}
+^n:: Send {Down}
 
 ^v::
   StringReplace clipboard2, clipboard, \r\n, \n, All
@@ -218,47 +172,23 @@ Return
   SendMessage, 0x115, 1, 0, %control%, A
 Return
 
-^v::
-  Send +{Ins}
-Return
+^v:: Send +{Ins}
 
-^p::
-  Send {Up}
-Return
-^n::
-  Send {Down}
-Return
+^p:: Send {Up}
+^n:: Send {Down}
 
-^a::
-  send {home}
-Return
-^e::
-  send {end}
-Return
+^a:: send {home}
+^e:: send {end}
 
-^f::
-  send {right}
-return
-^b::
-  send {left}
-Return
+^f:: send {right}
+^b:: send {left}
 
-!b::
-  send ^{left}
-Return
-!f::
-  send ^{right}
-Return
+!b:: send ^{left}
+!f:: send ^{right}
 
-^d::
-  send {del}
-Return
-^k::
-  send ^{end}
-Return
-^u::
-  send ^{home}
-Return
+^d:: send {del}
+^k:: send ^{end}
+^u:: send ^{home}
 ^w::
   send ^+{left}
   loop, 50 {
@@ -274,12 +204,8 @@ Return
 #IfWinActive
 
 #IfWinActive, ahk_class VMPlayerFrame
-!j::
-  send +{PgDn}
-Return
-!k::
-  send +{PgUp}
-Return
+!j:: send +{PgDn}
+!k:: send +{PgUp}
 #IfWinActive
 
 ; Alt + j/k for scroll up/down in Adobe Reader
@@ -311,122 +237,111 @@ Return
 Return
 #IfWinActive
 
+; Make Office Communicator using vim-like shortcut keys
+#IfWinActive, ahk_class IMWindowClass
+^+e:: Send {End}
+^+a:: Send {Home}
+^u:: Send +{Home}{Del}
+^k:: Send +{End}{Del}
+#IfWinActive
+
 ; Make <ESC> to close office communicator
 #IfWinActive, ahk_class CommunicatorMainWindowClass
-Esc::
-  Send !{F4}
-  Return
-Return
+Esc:: Send !{F4}
 #IfWinActive
 
 ; Make <ESC> to close Total command
 #IfWinActive, ahk_class TTOTAL_CMD
-#e::
-    Send !{F4}
-    Return
-Return
+#e:: Send !{F4}
 #IfWinActive
 
 ; Make <ESC> to close OneNote
 #IfWinActive, ahk_class Framework::CFrame
-^w::
-  Send  ^{Backspace}
-Return
-!d::
-  Send  ^{Del}
-Return
-ESC::
-  Send !{F4}
-  Return
-Return
+^w:: Send  ^{Backspace}
+!d:: Send  ^{Del}
+^e:: Send {End}
+^a:: Send {Home}
+^u:: Send +{Home}{Del}
+^k:: Send +{End}{Del}
+^+a:: Send ^{Home}+^{End}
+ESC:: WinClose
 #IfWinActive
 
 ; Close Explorer.exe (My computer) by <ESC>
 #IfWinActive, ahk_class CabinetWClass
-ESC::
-  Send !{F4}
-  Return
-Return
-^l::
-  Send !d
-  Return
-Return
+ESC:: Send !{F4}
+^l:: Send !d
 #IfWinActive
 
 ; Close Tencent Main window by <ESC>
 #IfWinActive, ahk_class TXGuiFoundation
-ESC::
-  Send !{F4}
-  Return
-Return
+ESC:: Send !{F4}
 #IfWinActive
 
 ; Close Skype Windows by <ESC>
 #IfWinActive, Skype
-ESC::
-  Send !{F4}
-  Return
-Return
+ESC:: Send !{F4}
 #IfWinActive
 
 ; VIM-Like and Emacs-Like shortcuts in Outlook
 #IfWinActive, ahk_class rctrl_renwnd32
-^w::
-  Send  ^{Backspace}
-Return
-!d::
-  Send  ^{Del}
-Return
-^a::
-  Send  {Home}
-Return
-^e::
-  Send  {End}
-Return
-!j::
-  Send  {Down}
-Return
-!k::
-  Send  {Up}
-Return
+^w:: Send  ^{Backspace}
+!d:: Send  ^{Del}
+^a:: Send  {Home}
+^e:: Send  {End}
+!j:: Send  {Down}
+!k:: Send  {Up}
 #IfWinActive
 
 ; Minimize the Outlook Main Window by <ESC>
 #IfWinActive, Microsoft Outlook
-ESC::
-  Send  !{Space}n
-  Return
-Return
+ESC:: Send  !{Space}n
 #IfWinActive
 
-; Show Calendar
-F9::
-  Send #b{Up}{Enter}
-Return
-; Open files
-!+f::
-  run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
-Return
-!+l::
-  Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
-Return
-^!u::
-  run "C:\Windows\_Defined\Cygwin64.lnk"
-Return
-; !+p::
-  ; Run %A_WinDir%\hh.exe "C:\MyProgrames\Python27\Doc\python275.chm"
-; Return
-; !+m::
-  ; Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
-; Return
-; !+r::
-  ; Run %A_WinDir%\hh.exe "C:\MyProgrames\Ruby193\doc\ruby19-core.chm"
-; Return
+; For lunchy
+#IfWinActive, ahk_class QTool
+^u:: Send +{HOME}{Del}
+^k:: Send +{End}{Del}
+^a:: Send {Home}
+^e:: Send {End}
+^w:: Send ^{Backspace}
+#IfWinActive
 
-; F9::
-  ; Send source ~/lijiao/.lijiaorc{Enter}
-  ; Send clear{Enter}
-; Return
+#IfWinActive, ahk_class wcl_manager1
+ESC::
+{
+  IfWinActive, Cisco Jabber
+  {
+    Send !{F4}
+    ; WinMinimize
+  } else {
+    WinClose
+  }
+  Return
+}
+#IfWinActive
+
+#s::
+{
+  IfWinExist, Cisco Jabber
+  {
+    WinActivate
+    Return
+  } else {
+    Run "c:\Program Files (x86)\Cisco Systems\Cisco Jabber\CiscoJabber.exe"
+  }
+  Return
+}
+
+; Show Calendar
+F9:: Send #b{Up}{Enter}
+; Open files
+!+f:: run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
+!+l:: Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
+^!u:: run "C:\Windows\_Defined\Cygwin64.lnk"
+^!p:: Run "c:\Marslo\Study\Books\CI\VCS\Perforce\P4 Command Reference - 2014.02.Dec.pdf"
+; !+m:: ; Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
+; !+r:: ; Run %A_WinDir%\hh.exe "C:\MarsloProgramFiles\Ruby193\doc\ruby19-core.chm"
 
 !q::
   MaxTimeWait = 1000
@@ -448,4 +363,40 @@ Return
     Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
   }
   ; MsgBox, %ClipSaved%
+Return
+
+:://cmd:: Run cmd
+; Open Windows Task Manager
+:://t:: Run taskmgr.exe
+; if WinExist Windows "Windows Task Manager"
+; {
+  ; WinActivate
+; } else {
+  ; Run "c:\Windows\winsxs\amd64_microsoft-windows-taskmgr_31bf3856ad364e35_6.1.7601.17514_none_7288349cbfd37b08\taskmgr.exe"
+  ; Run taskmgr.exe
+; }
+; Return
+
+:://cc:: Run calc.exe
+; if WinExist Windows "Calculator"
+; {
+  ; WinActivate
+; } else {
+  ; Run calc.exe
+; }
+; Return
+
+:://mail::Marslo_Jiao@symantec.com
+::engba::engba.symantec.com
+::engma::engma.symantec.com
+:://vsc::
+  Run "C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe"
+  Sleep 2000
+  Send Administrator{Tab}ASP@ssw0rd{Enter}
+  Sleep 2000
+  Send !i
+Return
+:://jp4::
+  Send ssl:perforce.ges.symantec.com:9666{Tab}svc_appbld{Tab}$VC_@ppbld2014{Tab}{Tab}
+  Send cd-jenkins-${shiftdown}[{shiftup}JOB_NAME{shiftdown}]{shiftup}
 Return
