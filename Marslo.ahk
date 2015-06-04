@@ -1,4 +1,4 @@
-﻿; =============================================================================
+﻿	; =============================================================================
 ;       FileName: Marslo.ahk
 ;           Desc:
 ;                 How to get class of windows:
@@ -22,10 +22,10 @@
 ;               0.0.8: Make format simple
 ; =============================================================================
 
-#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-#Warn  ; Recommended for catching common errors.
-SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+#NoEnv                        ; Recommended for performance and compatibility with future AutoHotkey releases.
+#Warn                         ; Recommended for catching common errors.
+SendMode, Input               ; Recommended for new scripts due to its superior speed and reliability.
+SetWorkingDir %A_ScriptDir%   ; Ensures a consistent starting directory.
 SetTitleMatchMode 2
 
 ^!r::
@@ -354,7 +354,7 @@ F9:: Send #b{Up}{Enter}
     If A_Index > %MaxTimeWait%
       Break
   }
-  Select = %Clipboard% ; 强制转换为纯文本
+  Select = %Clipboard%                                        ; 强制转换为纯文本
   IsFile := DllCall("IsClipboardFormatAvailable","int",15)
   Clipboard := ClipSaved
   ClipSaved =
@@ -362,10 +362,10 @@ F9:: Send #b{Up}{Enter}
   {
     Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
   }
-  ; MsgBox, %ClipSaved%
 Return
 
 :://cmd:: Run cmd
+
 ; Open Windows Task Manager
 :://t:: Run taskmgr.exe
 ; if WinExist Windows "Windows Task Manager"
@@ -386,9 +386,11 @@ Return
 ; }
 ; Return
 
-:://mail::Marslo_Jiao@symantec.com
-::engba::engba.symantec.com
-::engma::engma.symantec.com
+:c*://mail::Marslo_Jiao@symantec.com
+:c*:engba::engba.symantec.com
+:c*:engma::engma.symantec.com
+:c*:mpw::Nrblwbbqmx1!
+
 :://vsc::
   Run "C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe"
   Sleep 2000
@@ -396,6 +398,7 @@ Return
   Sleep 2000
   Send !i
 Return
+
 :://jp4::
   Send ssl:perforce.ges.symantec.com:9666{Tab}svc_appbld{Tab}$VC_@ppbld2014{Tab}{Tab}
   Send cd-jenkins-${shiftdown}[{shiftup}JOB_NAME{shiftdown}]{shiftup}
