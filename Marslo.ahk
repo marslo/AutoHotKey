@@ -365,26 +365,8 @@ F9:: Send #b{Up}{Enter}
 Return
 
 :://cmd:: Run cmd
-
-; Open Windows Task Manager
-:://t:: Run taskmgr.exe
-; if WinExist Windows "Windows Task Manager"
-; {
-  ; WinActivate
-; } else {
-  ; Run "c:\Windows\winsxs\amd64_microsoft-windows-taskmgr_31bf3856ad364e35_6.1.7601.17514_none_7288349cbfd37b08\taskmgr.exe"
-  ; Run taskmgr.exe
-; }
-; Return
-
+:://t:: Run taskmgr.exe                                       ; Open Windows Task Manager
 :://cc:: Run calc.exe
-; if WinExist Windows "Calculator"
-; {
-  ; WinActivate
-; } else {
-  ; Run calc.exe
-; }
-; Return
 
 :c*://mail::Marslo_Jiao@symantec.com
 :c*:engba::engba.symantec.com
