@@ -333,6 +333,11 @@ ESC::
   Return
 }
 
+; Make <ESC> to close office communicator
+#IfWinActive, ahk_class #32770
+Esc:: Send !{F4}
+#IfWinActive
+
 ; Show Calendar
 F9:: Send #b{Up}{Enter}
 ; Open files
@@ -360,7 +365,7 @@ F9:: Send #b{Up}{Enter}
   ClipSaved =
   If IsFile
   {
-    Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
+    Run, "C:\Marslo\MarsloProgramFiles\Vim\vim74\gvim.exe" "%Select%"
   }
 Return
 
