@@ -54,6 +54,22 @@ Return
   WinMove, %mTitle%,, xpos, ypos+10
 Return
 
++!WheelUp::
+  scroll(0)
+return
+
++!WheelDown::
+  scroll(1)
+return
+
+scroll(direction)
+{
+  SetTitleMatchMode, 2
+  ControlGetFocus, fcontrol, A
+  Loop 5
+  SendMessage, 0x114, %direction%, 0, %fcontrol%, A
+}
+
 ; Make quick scroll to the putty window
 #IfWinActive, ahk_class PuTTY
 ; ControlGetFocus, control, A
@@ -107,6 +123,7 @@ Return
 +j:: Send {Down}
 +k:: Send {Up}
 +/:: Send ^f
+esc:: Send !{F4}
 #IfWinActive
 
 ; Using VIM-LIKE key against Explorer.exe
@@ -343,8 +360,8 @@ F9:: Send #b{Up}{Enter}
 ; Open files
 !+f:: run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
 !+l:: Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
-^!u:: run "C:\Windows\_Defined\Cygwin64.lnk"
-^!p:: Run "c:\Marslo\Study\Books\CI\VCS\Perforce\P4 Command Reference - 2014.02.Dec.pdf"
+^!u:: run "C:\Marslo\MyProgramFiles\Launchy\_define\Cygwin.lnk"
+^!p:: Run "C:\Marslo\Study\Books\CI\VCS\Perforce\P4 Command Reference - 2014.02.Dec.pdf"
 ; !+m:: ; Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
 ; !+r:: ; Run %A_WinDir%\hh.exe "C:\MarsloProgramFiles\Ruby193\doc\ruby19-core.chm"
 
@@ -365,7 +382,7 @@ F9:: Send #b{Up}{Enter}
   ClipSaved =
   If IsFile
   {
-    Run, "C:\Marslo\MarsloProgramFiles\Vim\vim74\gvim.exe" "%Select%"
+    Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
   }
 Return
 
@@ -382,11 +399,29 @@ Return
   Run "C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe"
   Sleep 2000
   Send Administrator{Tab}ASP@ssw0rd{Enter}
-  Sleep 2000
-  Send !i
 Return
 
 :://jp4::
   Send ssl:perforce.ges.symantec.com:9666{Tab}svc_appbld{Tab}$VC_@ppbld2014{Tab}{Tab}
-  Send cd-jenkins-${shiftdown}[{shiftup}JOB_NAME{shiftdown}]{shiftup}
+  Send cd-jenkins-${{}JOB_NAME{}}
 Return
+
+:c*:mlg::
+  Send Marslo_Jiao{TAB}Nrblwbbqmx1{!}
+Return
+
+:c*:sslp4::ssl:perforce.ges.symantec.com
+:c*:p4port::export P4PORT=ssl:perforce.ges.symantec.com:9666
+:c*:p4user::export P4USER=Marslo_Jiao
+:c*:apb::appbuilder
+:c*:arb::appreldev
+:c*:svp::svc_appbld
+:c*:ppw::P@ssw0rd
+:c*:MJ::Marslo_Jiao
+:c*:engba::engba.symantec.com
+:c*:engma::engma.symantec.com
+:c*:symcom::symantec.com
+:c*:cdas::cdaslab.net
+:c*:arti::artifactory
+:c*:ape::appliance
+:c*:mmail::Marslo_Jiao@symantec.com
