@@ -70,6 +70,10 @@ scroll(direction)
   SendMessage, 0x114, %direction%, 0, %fcontrol%, A
 }
 
+:c*:dpw::P@ssw0rd
+:c*:gpw::Gyp.s8m
+:c*:aspw::ASP@ssw0rd
+
 ; Make quick scroll to the putty window
 #IfWinActive, ahk_class PuTTY
 ; ControlGetFocus, control, A
@@ -315,6 +319,11 @@ ESC:: Send !{F4}
 ESC:: Send  !{Space}n
 #IfWinActive
 
+; For 163 music
+#IfWinActive, ahk_class OrpheusBrowserHost
+ESC:: Send  !{F4}
+#IfWinActive
+
 ; For lunchy
 #IfWinActive, ahk_class QTool
 ^u:: Send +{HOME}{Del}
@@ -350,15 +359,16 @@ ESC::
   Return
 }
 
-; Make <ESC> to close office communicator
-#IfWinActive, ahk_class #32770
-Esc:: Send !{F4}
-#IfWinActive
+; Make <ESC> to close password safe
+; #IfWinActive, ahk_class #32770
+; Esc:: Send !{F4}
+; #IfWinActive
 
 ; Show Calendar
 F9:: Send #b{Up}{Enter}
 ; Open files
-!+f:: run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
+; !+f:: run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
+!+f:: run "C:\Marslo\MarsloVeritas\Box Sync\Study\Books\Script\Python\Dive into Python\diveintopythonzh-cn.chm"
 !+l:: Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
 ^!u:: run "C:\Marslo\MyProgramFiles\Launchy\_define\Cygwin.lnk"
 ^!p:: Run "C:\Marslo\Study\Books\CI\VCS\Perforce\P4 Command Reference - 2014.02.Dec.pdf"
@@ -382,6 +392,7 @@ F9:: Send #b{Up}{Enter}
   ClipSaved =
   If IsFile
   {
+    ; Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
     Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
   }
 Return
@@ -407,21 +418,34 @@ Return
 Return
 
 :c*:mlg::
-  Send Marslo_Jiao{TAB}Nrblwbbqmx1{!}
+  Send Marslo_Jiao{TAB}MyPassword{1}
+Return
+:c*:sysadmin::
+  Send sysadmin{TAB}P@ssw0rd{Enter}
+Return
+
+:c*:winadmin::
+  Send Administrator{TAB}ASP@ssw0rd{Enter}
 Return
 
 :c*:sslp4::ssl:perforce.ges.symantec.com
 :c*:p4port::export P4PORT=ssl:perforce.ges.symantec.com:9666
 :c*:p4user::export P4USER=Marslo_Jiao
 :c*:apb::appbuilder
-:c*:arb::appreldev
-:c*:svp::svc_appbld
-:c*:ppw::P@ssw0rd
+:c*:adv::appreldev
+:c*:svc::svc_appbld
 :c*:MJ::Marslo_Jiao
 :c*:engba::engba.symantec.com
 :c*:engma::engma.symantec.com
+:c*:--nm::-nm.engba.symantec.com
 :c*:symcom::symantec.com
 :c*:cdas::cdaslab.net
-:c*:arti::artifactory
+:c*:Arti::Artifactory
 :c*:ape::appliance
 :c*:mmail::Marslo_Jiao@symantec.com
+:c*:mjmail::marslo.jiao@gmail.com
+:c*:@mj::marslo@10.220.141.4
+:c*:1220::root@10.220.141.
+:c*:2220::root@10.220.142.
+:c*:win200::10.220.141.200
+:c*:10220::root@10.220.
