@@ -333,6 +333,22 @@ ESC:: Send  !{F4}
 ^w:: Send ^{Backspace}
 #IfWinActive
 
+; For everything
+#IfWinActive, ahk_class EVERYTHING
+^u:: Send +{HOME}{Del}
+^k:: Send +{End}{Del}
+^a:: Send {Home}
+^e:: Send {End}
+^w:: Send ^{Backspace}
+#IfWinActive
+
+; For PuTTyTray
+#IfWinActive, ahk_class PuTTYConfigBox
+^u:: Send +{HOME}{Del}
+^k:: Send +{End}{Del}
+^a:: Send {Home}
+^e:: Send {End}
+#IfWinActive
 #IfWinActive, ahk_class wcl_manager1
 ESC::
 {
@@ -449,3 +465,19 @@ Return
 :c*:2220::root@10.220.142.
 :c*:win200::10.220.141.200
 :c*:10220::root@10.220.
+:c*:mtvbu::
+  Send root@appbuilder.engba.symantec.com
+  Loop, 19 {
+    Send {Left}
+  }
+Return
+:c*:cdbu::
+  Send root@appbuilder.engma.symantec.com
+  Loop, 19 {
+    Send {Left}
+  }
+Return
+
+:c*:nur::nba_upgrade_rpm
+:c*:a11::Appesx1-vm01.engba.symantec.com
+:c*:a12::Appesx1-vm02.engba.symantec.com
