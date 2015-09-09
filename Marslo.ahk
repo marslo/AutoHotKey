@@ -417,10 +417,9 @@ Return
 :://t:: Run taskmgr.exe                                       ; Open Windows Task Manager
 :://cc:: Run calc.exe
 
-:c*://mail::Marslo_Jiao@symantec.com
+:c*:mmail::Marslo_Jiao@symantec.com
 :c*:engba::engba.symantec.com
 :c*:engma::engma.symantec.com
-:c*:mpw::Nrblwbbqmx1!
 
 :://vsc::
   Run "C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe"
@@ -465,18 +464,10 @@ Return
 :c*:2220::root@10.220.142.
 :c*:win200::10.220.141.200
 :c*:10220::root@10.220.
-:c*:mtvbu::
-  Send root@appbuilder.engba.symantec.com
-  Loop, 19 {
-    Send {Left}
-  }
-Return
-:c*:cdbu::
-  Send root@appbuilder.engma.symantec.com
-  Loop, 19 {
-    Send {Left}
-  }
-Return
+:c*:mtvbu::root@appbuilder.engba.symantec.com{Left 19}
+:c*:cdbu::root@appbuilder.engma.symantec.com{Left 19}
+:c*:mbu::appbuilder.engba.symantec.com{Left 19}
+:c*:cbu::appbuilder.engma.symantec.com{Left 19}
 
 :c*:nur::nba_upgrade_rpm
 :c*:a11::Appesx1-vm01.engba.symantec.com
