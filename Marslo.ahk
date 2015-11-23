@@ -70,10 +70,6 @@ scroll(direction)
   SendMessage, 0x114, %direction%, 0, %fcontrol%, A
 }
 
-:c*:dpw::P@ssw0rd
-:c*:gpw::Gyp.s8m
-:c*:aspw::ASP@ssw0rd
-
 ; Make quick scroll to the putty window
 #IfWinActive, ahk_class PuTTY
 ; ControlGetFocus, control, A
