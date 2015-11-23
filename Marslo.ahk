@@ -70,6 +70,10 @@ scroll(direction)
   SendMessage, 0x114, %direction%, 0, %fcontrol%, A
 }
 
+:c*:dpw::P@ssw0rd
+:c*:gpw::Gyp.s8m
+:c*:aspw::ASP@ssw0rd
+
 ; Make quick scroll to the putty window
 #IfWinActive, ahk_class PuTTY
 ; ControlGetFocus, control, A
@@ -348,6 +352,22 @@ ESC:: Send  !{F4}
 ^e:: Send {End}
 #IfWinActive
 
+; For everything
+#IfWinActive, ahk_class EVERYTHING
+^u:: Send +{HOME}{Del}
+^k:: Send +{End}{Del}
+^a:: Send {Home}
+^e:: Send {End}
+^w:: Send ^{Backspace}
+#IfWinActive
+
+; For PuTTyTray
+#IfWinActive, ahk_class PuTTYConfigBox
+^u:: Send +{HOME}{Del}
+^k:: Send +{End}{Del}
+^a:: Send {Home}
+^e:: Send {End}
+#IfWinActive
 #IfWinActive, ahk_class wcl_manager1
 ESC::
 {
@@ -374,15 +394,14 @@ ESC::
   Return
 }
 
-; Make <ESC> to close office communicator
-#IfWinActive, ahk_class #32770
-Esc:: Send !{F4}
-#IfWinActive
+; Make <ESC> to close password safe
+; #IfWinActive, ahk_class #32770
+; Esc:: Send !{F4}
+; #IfWinActive
 
 ; Show Calendar
 F9:: Send #b{Up}{Enter}
 ; Open files
-; !+f:: run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
 !+f:: run "C:\Marslo\MarsloVeritas\Box Sync\Study\Books\Script\Python\Dive into Python\diveintopythonzh-cn.chm"
 !+l:: Run "C:\Program Files (x86)\Microsoft Office\Office15\OUTLOOK.EXE" /recycle
 ^!u:: run "C:\Marslo\Tools\Software\System\Shortcuts\_define\Cygwin.lnk"
@@ -407,6 +426,7 @@ F9:: Send #b{Up}{Enter}
   ClipSaved =
   If IsFile
   {
+    ; Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
     Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
   }
 Return
@@ -445,8 +465,7 @@ Return
 :c*:apb::appbuilder
 :c*:apdv::appreldev
 :c*:svc::svc_appbld
-:c*:MJ-::Marslo_Jiao
-:c*:MJ.::marslo.jiao
+:c*:MJ::marslo.jiao
 :c*:engba::engba.symantec.com
 :c*:engma::engma.symantec.com
 :c*:--nm::-nm.engba.symantec.com
