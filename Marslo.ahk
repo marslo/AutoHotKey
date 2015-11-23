@@ -311,17 +311,41 @@ ESC:: Send !{F4}
 #IfWinActive
 
 ; Minimize the Outlook Main Window by <ESC>
-#IfWinActive, Microsoft Outlook
+#IfWinActive, Marslo.Jiao@veritas.com - Outlook
 ESC:: Send  !{Space}n
 #IfWinActive
 
-; For lunchy
+; For 163 music
+#IfWinActive, ahk_class OrpheusBrowserHost
+ESC:: Send  !{F4}
+#IfWinActive
+
+; For launchy
 #IfWinActive, ahk_class QTool
 ^u:: Send +{HOME}{Del}
 ^k:: Send +{End}{Del}
 ^a:: Send {Home}
 ^e:: Send {End}
 ^w:: Send ^{Backspace}
+^p:: Send {Up}
+^n:: Send {Down}
+#IfWinActive
+
+; For everything
+#IfWinActive, ahk_class EVERYTHING
+^u:: Send +{HOME}{Del}
+^k:: Send +{End}{Del}
+^a:: Send {Home}
+^e:: Send {End}
+^w:: Send ^{Backspace}
+#IfWinActive
+
+; For PuTTyTray
+#IfWinActive, ahk_class PuTTYConfigBox
+^u:: Send +{HOME}{Del}
+^k:: Send +{End}{Del}
+^a:: Send {Home}
+^e:: Send {End}
 #IfWinActive
 
 #IfWinActive, ahk_class wcl_manager1
@@ -358,9 +382,10 @@ Esc:: Send !{F4}
 ; Show Calendar
 F9:: Send #b{Up}{Enter}
 ; Open files
-!+f:: run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
-!+l:: Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
-^!u:: run "C:\Marslo\MyProgramFiles\Launchy\_define\Cygwin.lnk"
+; !+f:: run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
+!+f:: run "C:\Marslo\MarsloVeritas\Box Sync\Study\Books\Script\Python\Dive into Python\diveintopythonzh-cn.chm"
+!+l:: Run "C:\Program Files (x86)\Microsoft Office\Office15\OUTLOOK.EXE" /recycle
+^!u:: run "C:\Marslo\Tools\Software\System\Shortcuts\_define\Cygwin.lnk"
 ^!p:: Run "C:\Marslo\Study\Books\CI\VCS\Perforce\P4 Command Reference - 2014.02.Dec.pdf"
 ; !+m:: ; Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
 ; !+r:: ; Run %A_WinDir%\hh.exe "C:\MarsloProgramFiles\Ruby193\doc\ruby19-core.chm"
@@ -387,14 +412,9 @@ F9:: Send #b{Up}{Enter}
 Return
 
 :://cmd:: Run cmd
-:://t:: Run taskmgr.exe                                       ; Open Windows Task Manager
+; Open Windows Task Manager
+:://t:: Run taskmgr.exe
 :://cc:: Run calc.exe
-
-:c*://mail::Marslo_Jiao@symantec.com
-:c*:engba::engba.symantec.com
-:c*:engma::engma.symantec.com
-:c*:mpw::Nrblwbbqmx1!
-
 :://vsc::
   Run "C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe"
   Sleep 2000
@@ -402,26 +422,59 @@ Return
 Return
 
 :://jp4::
-  Send ssl:perforce.ges.symantec.com:9666{Tab}svc_appbld{Tab}$VC_@ppbld2014{Tab}{Tab}
-  Send cd-jenkins-${{}JOB_NAME{}}
+  Send ssl:perforce.community.veritas.com:9666{Tab}svc.appbld{Tab}SPW{Tab}{Tab}
+  Send jenkins-${{}JOB_NAME{}}
 Return
 
 :c*:mlg::
-  Send Marslo_Jiao{TAB}Nrblwbbqmx1{!}
+  Send marslo.jiao{TAB}MPW{!}
+Return
+:c*:sysadmin::
+  Send sysadmin{TAB}DPW{Enter}
 Return
 
-:c*:sslp4::ssl:perforce.ges.symantec.com
-:c*:p4port::export P4PORT=ssl:perforce.ges.symantec.com:9666
-:c*:p4user::export P4USER=Marslo_Jiao
+:c*:winadmin::
+  Send Administrator{TAB}ASPW{Enter}
+Return
+
+:c*:vrtscom::community.veritas.com
+:c*:sslp4::ssl:perforce.community.veritas.com
+:c*:p4port::export P4PORT=ssl:perforce.community.veritas.com:9666
+:c*:p4user::export P4USER=marslo.jiao
+:c*:expw::export WORKSPACE=.
 :c*:apb::appbuilder
-:c*:arb::appreldev
-:c*:svp::svc_appbld
-:c*:ppw::P@ssw0rd
-:c*:MJ::Marslo_Jiao
+:c*:apdv::appreldev
+:c*:svc::svc_appbld
+:c*:MJ-::Marslo_Jiao
+:c*:MJ.::marslo.jiao
 :c*:engba::engba.symantec.com
 :c*:engma::engma.symantec.com
+:c*:--nm::-nm.engba.symantec.com
 :c*:symcom::symantec.com
+:c*:vcom::veritas.com
 :c*:cdas::cdaslab.net
-:c*:arti::artifactory
+:c*:@ver::@veritas.com
+:c*:Arti::Artifactory
 :c*:ape::appliance
-:c*:mmail::Marslo_Jiao@symantec.com
+:c*:mmail::marslo.jiao@veritas.com
+:c*:mjmail::marslo.jiao@gmail.com
+:c*:@mj::marslo@marslojiao.engma.symantec.com
+:c*:1220::root@10.220.141.
+:c*:2220::root@10.220.142.
+:c*:win200::10.220.141.200
+:c*:10220::root@10.220.
+:c*:rmtvbu::root@appbuilder.engba.symantec.com{Left 19}
+:c*:rcdbu::root@appbuilder.engma.symantec.com{Left 19}
+:c*:mtvbu::svc_appbld@appbuilder.engba.symantec.com{Left 19}
+:c*:cdbu::svc_appbld@appbuilder.engma.symantec.com{Left 19}
+:c*:mbu::appbuilder.engba.symantec.com{Left 19}
+:c*:cbu::appbuilder.engma.symantec.com{Left 19}
+
+:c*:nur::nba_upgrade_rpm
+:c*:2nur::nba_upgrade_rpm_2.7.1
+:c*:nmr::nba_main_regression_
+:c*:2nmr::nba_main_regression_2.7.1
+:c*:p1sh::provision_rhel66_builder1.sh
+:c*:p2sh::provision_rhel66_builder2.sh
+
+:c*:271.::2.7.1
