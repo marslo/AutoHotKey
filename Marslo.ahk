@@ -361,6 +361,7 @@ ESC:: Send  !{F4}
 ^e:: Send {End}
 #IfWinActive
 
+; For Jabber
 #IfWinActive, ahk_class wcl_manager1
 ESC::
 {
@@ -375,6 +376,7 @@ ESC::
 }
 #IfWinActive
 
+; For Skype for Business (Lync)
 #f::
 {
   IfWinExist, Skype for Business
@@ -453,14 +455,7 @@ Return
 
 :c*:MJ::marslo.jiao
 :c*:Arti::Artifactory
-:c*:apa::appadmin
-:c*:ape::appliance
-:c*:mmail::marslo.jiao@philips.com
 :c*:mjmail::marslo.jiao@gmail.com
 :c*:mjhot::marslo.jiao@hotmail.com
-:c*:rmtvbu::root@appbuilder.engba.symantec.com{Left 19}
-:c*:rcdbu::root@appbuilder.engma.symantec.com{Left 19}
-:c*:mtvbu::svc_appbld@appbuilder.engba.symantec.com{Left 19}
-:c*:cdbu::svc_appbld@appbuilder.engma.symantec.com{Left 19}
 :c*:mbu::appbuilder.engba.symantec.com{Left 19}
 :c*:cbu::appbuilder.engma.symantec.com{Left 19}
