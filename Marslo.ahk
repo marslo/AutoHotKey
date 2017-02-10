@@ -28,6 +28,20 @@ SendMode, Input               ; Recommended for new scripts due to its superior 
 SetWorkingDir %A_ScriptDir%   ; Ensures a consistent starting directory.
 SetTitleMatchMode 2
 
+; ^i:: Send, {Insert}
+; For qwerkywrite keyboard
+; End::Del
+; Del::End
+
+; ^End::End
+; ^Del::Del
+
+; LAlt::LWin
+; LWin::LAlt
+
+RAlt::Ins
+^RAlt::RAlt
+
 ^!r::
     reload
 Return
@@ -126,6 +140,11 @@ Return
 esc:: Send !{F4}
 #IfWinActive
 
+; Using VIM-LIKE key against GoldenDict
+#IfWinActive, ahk_class ApplicationFrameWindow
+esc:: Send !{F4}
+#IfWinActive
+
 ; Using VIM-LIKE key against Explorer.exe
 #IfWinActive, ahk_class IEFrame
 !j:: Send {Down}
@@ -147,17 +166,11 @@ esc:: Send !{F4}
 ^d:: Send {Del}
 ^k:: Send ^{End}
 ^u:: Send ^{Home}
-^w::
-  Send ^+{Left}
-  Loop, 50 {
-    Send {Del}
-  }
-Return
+^w:: Send {Backspace}^{Backspace}
 !d::
-  Send ^+{Right}
-  Loop, 50 {
-    Send {Backspace}
-  }
+  Send ^{Right}
+  Send {Backspace}
+  Send ^{Backspace}
 Return
 
 !k::
@@ -311,7 +324,7 @@ ESC:: Send !{F4}
 #IfWinActive
 
 ; Minimize the Outlook Main Window by <ESC>
-#IfWinActive, Marslo.Jiao@veritas.com - Outlook
+#IfWinActive, marslo.jiao@philips.com - Outlook
 ESC:: Send  !{Space}n
 #IfWinActive
 
@@ -348,22 +361,6 @@ ESC:: Send  !{F4}
 ^e:: Send {End}
 #IfWinActive
 
-; For everything
-#IfWinActive, ahk_class EVERYTHING
-^u:: Send +{HOME}{Del}
-^k:: Send +{End}{Del}
-^a:: Send {Home}
-^e:: Send {End}
-^w:: Send ^{Backspace}
-#IfWinActive
-
-; For PuTTyTray
-#IfWinActive, ahk_class PuTTYConfigBox
-^u:: Send +{HOME}{Del}
-^k:: Send +{End}{Del}
-^a:: Send {Home}
-^e:: Send {End}
-#IfWinActive
 #IfWinActive, ahk_class wcl_manager1
 ESC::
 {
@@ -378,29 +375,31 @@ ESC::
 }
 #IfWinActive
 
-#s::
+#f::
 {
-  IfWinExist, Cisco Jabber
+  IfWinExist, Skype for Business
   {
     WinActivate
     Return
   } else {
-    Run "c:\Program Files (x86)\Cisco Systems\Cisco Jabber\CiscoJabber.exe"
+    Run "c:\Program Files (x86)\Microsoft Office\Office16\lync.exe"
   }
   Return
 }
 
-; Make <ESC> to close password safe
-; #IfWinActive, ahk_class #32770
-; Esc:: Send !{F4}
-; #IfWinActive
+; For Foobar2000
+#IfWinActive, ahk_exe foobar2000.exe
+ESC::
+  Send !{Space}n
+#IfWinActive
 
 ; Show Calendar
 F9:: Send #b{Up}{Enter}
+
 ; Open files
 !+f:: run "C:\Marslo\MarsloVeritas\Box Sync\Study\Books\Script\Python\Dive into Python\diveintopythonzh-cn.chm"
-!+l:: Run "C:\Program Files (x86)\Microsoft Office\Office15\OUTLOOK.EXE" /recycle
-^!u:: run "C:\Marslo\Tools\Software\System\Shortcuts\_define\Cygwin.lnk"
+!+l:: Run "C:\Program Files (x86)\Microsoft Office\Office16\OUTLOOK.EXE" /recycle
+^!u:: run "c:\ProgramData\Microsoft\Windows\Start Menu\Programs\Cygwin\Cygwin64 Terminal.lnk"
 ^!p:: Run "C:\Marslo\Study\Books\CI\VCS\Perforce\P4 Command Reference - 2014.02.Dec.pdf"
 ; !+m:: ; Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
 ; !+r:: ; Run %A_WinDir%\hh.exe "C:\MarsloProgramFiles\Ruby193\doc\ruby19-core.chm"
@@ -422,8 +421,7 @@ F9:: Send #b{Up}{Enter}
   ClipSaved =
   If IsFile
   {
-    ; Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
-    Run, "C:\Marslo\MyProgramFiles\Vim\vim74\gvim.exe" "%Select%"
+    Run, "C:\Marslo\MyProgramFiles\Vim\vim80\gvim.exe" "%Select%"
   }
 Return
 
@@ -453,43 +451,16 @@ Return
   Send Administrator{TAB}ASPW{Enter}
 Return
 
-:c*:vrtscom::community.veritas.com
-:c*:sslp4::ssl:perforce.community.veritas.com
-:c*:p4port::export P4PORT=ssl:perforce.community.veritas.com:9666
-:c*:p4user::export P4USER=marslo.jiao
-:c*:expw::export WORKSPACE=.
-:c*:apb::appbuilder
-:c*:apdv::appreldev
-:c*:svc::svc_appbld
 :c*:MJ::marslo.jiao
-:c*:engba::engba.symantec.com
-:c*:engma::engma.symantec.com
-:c*:--nm::-nm.engba.symantec.com
-:c*:symcom::symantec.com
-:c*:vcom::veritas.com
-:c*:cdas::cdaslab.net
-:c*:@ver::@veritas.com
 :c*:Arti::Artifactory
+:c*:apa::appadmin
 :c*:ape::appliance
-:c*:mmail::marslo.jiao@veritas.com
+:c*:mmail::marslo.jiao@philips.com
 :c*:mjmail::marslo.jiao@gmail.com
-:c*:@mj::marslo@marslojiao.engma.symantec.com
-:c*:1220::root@10.220.141.
-:c*:2220::root@10.220.142.
-:c*:win200::10.220.141.200
-:c*:10220::root@10.220.
+:c*:mjhot::marslo.jiao@hotmail.com
 :c*:rmtvbu::root@appbuilder.engba.symantec.com{Left 19}
 :c*:rcdbu::root@appbuilder.engma.symantec.com{Left 19}
 :c*:mtvbu::svc_appbld@appbuilder.engba.symantec.com{Left 19}
 :c*:cdbu::svc_appbld@appbuilder.engma.symantec.com{Left 19}
 :c*:mbu::appbuilder.engba.symantec.com{Left 19}
 :c*:cbu::appbuilder.engma.symantec.com{Left 19}
-
-:c*:nur::nba_upgrade_rpm
-:c*:2nur::nba_upgrade_rpm_2.7.1
-:c*:nmr::nba_main_regression_
-:c*:2nmr::nba_main_regression_2.7.1
-:c*:p1sh::provision_rhel66_builder1.sh
-:c*:p2sh::provision_rhel66_builder2.sh
-
-:c*:271.::2.7.1
