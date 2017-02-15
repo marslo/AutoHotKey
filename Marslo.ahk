@@ -22,6 +22,11 @@
 ;               0.0.8: Make format simple
 ; =============================================================================
 
+; ^: ctrl
+; !: Alt
+; +: Shift
+; #: Win
+
 #NoEnv                        ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn                         ; Recommended for catching common errors.
 SendMode, Input               ; Recommended for new scripts due to its superior speed and reliability.
@@ -156,6 +161,7 @@ esc:: Send !{F4}
 
 ; Redefine only when the active window is a cmd
 #IfWinActive ahk_class ConsoleWindowClass
+#IfWinActive, ahk_exe cmd.exe
 ^a:: Send {Home}
 ^e:: Send {End}
 ^f:: Send {Right}
@@ -282,7 +288,7 @@ Esc:: Send !{F4}
 
 ; Make <ESC> to close Total command
 #IfWinActive, ahk_class TTOTAL_CMD
-#e:: Send !{F4}
+#w:: Send !{F4}
 #IfWinActive
 
 ; Make <ESC> to close OneNote
@@ -361,7 +367,7 @@ ESC:: Send  !{F4}
 ^e:: Send {End}
 #IfWinActive
 
-; For Jabber
+; Close Jabber
 #IfWinActive, ahk_class wcl_manager1
 ESC::
 {
@@ -376,7 +382,7 @@ ESC::
 }
 #IfWinActive
 
-; For Skype for Business (Lync)
+; Open Skype of Business (lync)
 #f::
 {
   IfWinExist, Skype for Business
@@ -395,6 +401,12 @@ ESC::
   Send !{Space}n
 #IfWinActive
 
+; For Autohotkey Active Windows Spy
+#IfWinActive, ahk_exe AU3_Spy.exe
+ESC::
+  Send !{F4}
+#IfWinActive
+
 ; Show Calendar
 F9:: Send #b{Up}{Enter}
 
@@ -406,6 +418,7 @@ F9:: Send #b{Up}{Enter}
 ; !+m:: ; Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
 ; !+r:: ; Run %A_WinDir%\hh.exe "C:\MarsloProgramFiles\Ruby193\doc\ruby19-core.chm"
 
+; Open Vim by using Alt+q
 !q::
   MaxTimeWait = 1000
   ClipSaved := ClipboardAll
