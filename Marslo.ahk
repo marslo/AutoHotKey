@@ -33,6 +33,10 @@ SendMode, Input               ; Recommended for new scripts due to its superior 
 SetWorkingDir %A_ScriptDir%   ; Ensures a consistent starting directory.
 SetTitleMatchMode 2
 
+^!r::
+    reload
+Return
+
 ; ^i:: Send, {Insert}
 ; For qwerkywrite keyboard
 ; End::Del
@@ -160,7 +164,7 @@ esc:: Send !{F4}
 #IfWinActive
 
 ; Redefine only when the active window is a cmd
-#IfWinActive ahk_class ConsoleWindowClass
+; #IfWinActive, ahk_class ConsoleWindowClass
 #IfWinActive, ahk_exe cmd.exe
 ^a:: Send {Home}
 ^e:: Send {End}
@@ -295,7 +299,7 @@ Esc:: Send !{F4}
 #IfWinActive, ahk_class Framework::CFrame
 ^w:: Send  ^{Backspace}
 !d:: Send  ^{Del}
-^e:: Send {End}
+^+e:: Send {End}
 ^a:: Send {Home}
 ^u:: Send +{Home}{Del}
 ^k:: Send +{End}{Del}
@@ -468,6 +472,7 @@ Return
 
 :c*:MJ::marslo.jiao
 :c*:Arti::Artifactory
+:c*:artt::artifactory
 :c*:mjmail::marslo.jiao@gmail.com
 :c*:mjhot::marslo.jiao@hotmail.com
 :c*:mbu::appbuilder.engba.symantec.com{Left 19}
