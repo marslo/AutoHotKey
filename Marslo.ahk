@@ -11,7 +11,7 @@
 ;         Author: Marslo
 ;          Email: marslo.vida@gmail.com
 ;        Version: 0.0.6
-;     LastChange: 2013-11-27 16:00:00
+;     LastChange: 2020-02-14 17:59:38
 ;        History:
 ;               0.0.2: Add the shortcut key make command line looks like shell
 ;               0.0.3: Add the shortcut key for Python interative shell
@@ -32,10 +32,7 @@
 SendMode, Input               ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%   ; Ensures a consistent starting directory.
 SetTitleMatchMode 2
-
-^!r::
-    reload
-Return
+#Include C:\marslo\tools\software\scripts\ahk\TrayIcon.ahk
 
 ; ^i:: Send, {Insert}
 ; For qwerkywrite keyboard
@@ -53,6 +50,16 @@ RAlt::Ins
 
 ^!r::
     reload
+Return
+
+; win + m for mini windows
+#m::
+  Send  !{Space}n
+Return
+
+; alt + w for close the window
+!w::
+  Send !{F4}
 Return
 
 ; Move the windows by Shift+Win+h/l/j/k
@@ -92,6 +99,7 @@ scroll(direction)
   Loop 5
   SendMessage, 0x114, %direction%, 0, %fcontrol%, A
 }
+:c*:dpw::P@ssw0rd
 
 ; Make quick scroll to the putty window
 #IfWinActive, ahk_class PuTTY
@@ -152,6 +160,17 @@ esc:: Send !{F4}
 ; Using VIM-LIKE key against GoldenDict
 #IfWinActive, ahk_class ApplicationFrameWindow
 esc:: Send !{F4}
+#IfWinActive
+
+
+; win+w minimize MS Team
+#IfWinActive, ahk_exe Teams.exe
+#w:: Send !{F4}
+#IfWinActive
+
+; win+w to minimize for VNC Viewer
+#IfWinActive, ahk_class ui::Window::Dialog
+#w:: Send  !{Space}n
 #IfWinActive
 
 ; Using VIM-LIKE key against Explorer.exe
@@ -304,6 +323,8 @@ Esc:: Send !{F4}
 ^u:: Send +{Home}{Del}
 ^k:: Send +{End}{Del}
 ^+a:: Send ^{Home}+^{End}
+^Down::Send !+{+}
+^Up::Send !+-
 ESC:: WinClose
 #IfWinActive
 
@@ -334,7 +355,8 @@ ESC:: Send !{F4}
 #IfWinActive
 
 ; Minimize the Outlook Main Window by <ESC>
-#IfWinActive, marslo.jiao@philips.com - Outlook
+; #IfWinActive, marslo.jiao@<mycompany>.com - Outlook
+#IfWinActive, - Outlook
 ESC:: Send  !{Space}n
 #IfWinActive
 
@@ -371,6 +393,26 @@ ESC:: Send  !{F4}
 ^e:: Send {End}
 #IfWinActive
 
+
+; zoom chart
+#IfWinActive, ahk_class ZPPTMainFrmWndClass
+ESC::
+{
+  IfWinActive, Zoom - Pro Account
+  {
+    Send !{F4}
+    ; WinMinimize
+  } else {
+    WinClose
+  }
+  Return
+}
+#IfWinActive
+
+#IfWinActive, ahk_class ZPOWChatWndClass
+ESC:: Send  !{F4}
+#IfWinActive
+
 ; Close Jabber
 #IfWinActive, ahk_class wcl_manager1
 ESC::
@@ -399,10 +441,45 @@ ESC::
   Return
 }
 
+; Open Microsoft Teams
+#g::
+{
+  IfWinExist,  | Microsoft Teams
+  {
+    WinActivate
+    Return
+  } else {
+    Run "c:\Users\<myid>\AppData\Local\Microsoft\Teams\current\Teams.exe"
+  }
+  Return
+}
+
+
+; Youdao Dictionary
+#IfWinActive, ahk_class YodaoMainWndClass
+ESC:: Send !{Space}x
+^u:: Send +{HOME}{Del}
+^k:: Send +{End}{Del}
+^a:: Send {Home}
+^e:: Send {End}
+^w:: Send ^{Backspace}
+#IfWinActive
+
 ; For Foobar2000
 #IfWinActive, ahk_exe foobar2000.exe
 ESC::
   Send !{Space}n
+#IfWinActive
+
+; For Wechat app in Chrome
+; #IfWinActive, Wechat
+; ESC::
+  ; Send #{Down}
+; #IfWinActive
+
+; win+m to minimize chrome
+#IfWinActive, ahk_exe chrome.exe
+  #m:: Send !{Space}n
 #IfWinActive
 
 ; For Autohotkey Active Windows Spy
@@ -416,7 +493,7 @@ F9:: Send #b{Up}{Enter}
 
 ; Open files
 !+f:: run "C:\Marslo\MarsloVeritas\Box Sync\Study\Books\Script\Python\Dive into Python\diveintopythonzh-cn.chm"
-!+l:: Run "C:\Program Files (x86)\Microsoft Office\Office16\OUTLOOK.EXE" /recycle
+!+l:: Run "C\Program Files (x86)\Microsoft Office\root\Office16\OUTLOOK.EXE" /recycle
 ^!u:: run "c:\ProgramData\Microsoft\Windows\Start Menu\Programs\Cygwin\Cygwin64 Terminal.lnk"
 ^!p:: Run "C:\Marslo\Study\Books\CI\VCS\Perforce\P4 Command Reference - 2014.02.Dec.pdf"
 ; !+m:: ; Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
@@ -455,7 +532,7 @@ Return
 Return
 
 :://jp4::
-  Send ssl:perforce.community.veritas.com:9666{Tab}svc.appbld{Tab}SPW{Tab}{Tab}
+  Send ssl:perforce.community.<myvtas>.com:9666{Tab}svc.appbld{Tab}SPW{Tab}{Tab}
   Send jenkins-${{}JOB_NAME{}}
 Return
 
@@ -473,7 +550,45 @@ Return
 :c*:MJ::marslo.jiao
 :c*:Arti::Artifactory
 :c*:artt::artifactory
-:c*:mjmail::marslo.jiao@gmail.com
+:c*:@mj::marslo.jiao@gmail.com
 :c*:mjhot::marslo.jiao@hotmail.com
 :c*:mbu::appbuilder.engba.symantec.com{Left 19}
 :c*:cbu::appbuilder.engma.symantec.com{Left 19}
+:c*:exportnone::export http_proxy=""`; export https_proxy=$http_proxy`; export ftp_proxy=$http_proxy`;{Left 64}
+:c*:gitvvt::GIT_SSH_COMMAND="ssh -vvvT"
+
+; prevent the screensave
+; credit belongs to https://gist.github.com/Otiel/8d15d21593b481c1e525500762db52ba
+; CoordMode, Mouse, Screen
+; Loop
+; {
+;     ; Move mouse
+;     MouseMove, 1, 1, 0, R
+;     ; Replace mouse to its original location
+;     MouseMove, -1, -1, 0, R
+;     ; Wait before moving the mouse again
+;     Sleep, 600000
+; }
+; return
+
+; Show/hide Slack by win+s. credit belongs to https://gist.github.com/Otiel/24248595ac4b30366a2228a7ac5ec964
+#s::
+DetectHiddenWindows, Off
+Process, Exist, slack.exe
+slackPid = %ErrorLevel%
+IfWinNotExist, ahk_pid %slackPid%
+{
+  TrayIcon_Button("slack.exe")
+}
+Else
+{
+  IfWinActive, ahk_pid %slackPid%
+  {
+    WinClose, ahk_pid %slackPid%
+  }
+  Else
+  {
+    WinActivate, ahk_pid %slackPid%
+  }
+}
+return
